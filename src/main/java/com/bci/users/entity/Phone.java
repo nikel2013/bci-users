@@ -13,8 +13,6 @@ import lombok.Setter;
 import com.bci.users.domain.Constants.Database;
 import com.bci.users.domain.Constants.Field;
 
-@Getter
-@Setter
 @Entity
 @Table(name = Database.PPHONE_TABLE)
 public class Phone extends Audit{
@@ -35,5 +33,20 @@ public class Phone extends Audit{
 	
 	@Column(name = Field.COUNTRY_CODE)
 	private String countryCode;
-	
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 }

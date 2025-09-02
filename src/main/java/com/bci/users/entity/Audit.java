@@ -12,8 +12,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.bci.users.domain.Constants.Field;
 
-@Getter
-@Setter
 @MappedSuperclass
 public class Audit {
 	
@@ -28,4 +26,15 @@ public class Audit {
 	@UpdateTimestamp
 	private Date modified;
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public Date getModified() {
+        return modified;
+    }
 }

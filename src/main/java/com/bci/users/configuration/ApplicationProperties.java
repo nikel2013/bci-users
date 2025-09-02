@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 
-@Getter
-@Setter
 @RefreshScope
 @Configuration
 public class ApplicationProperties {
@@ -17,4 +15,13 @@ public class ApplicationProperties {
     
     @Value("${application.regex.password}")
     private String passwordRegex;
+
+    public String getEmailRegex() {
+        return emailRegex;
+    }
+
+    public String getPasswordRegex() {
+        return passwordRegex;
+    }
+
 }

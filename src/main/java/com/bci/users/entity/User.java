@@ -21,8 +21,6 @@ import org.hibernate.annotations.UuidGenerator;
 import com.bci.users.domain.Constants.Database;
 import com.bci.users.domain.Constants.Field;
 
-@Getter
-@Setter
 @Entity
 @Table(name = Database.USER_TABLE, uniqueConstraints={@UniqueConstraint(name = "uk_email", columnNames = {Field.USER_EMAIL})})
 public class User extends Audit{
@@ -50,5 +48,48 @@ public class User extends Audit{
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER, targetEntity = Phone.class)
 	private List<Phone> phones;
-	
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
 }
