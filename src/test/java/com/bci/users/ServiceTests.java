@@ -119,7 +119,7 @@ class ServiceTests {
 		Exception eService = assertThrows(
 		           Exception.class,
 		           () -> userService.register(request));		
-		assertEquals(String.format(Error.ALREADY_EXISTS_USER, u.getEmail()), eService.getMessage());
+		assertEquals(Error.ALREADY_EXISTS_USER, eService.getMessage());
 	}
 	
 	@Test

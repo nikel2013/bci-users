@@ -55,6 +55,7 @@ public final class Constants {
 		public static final String DTO_CITY_CODE = "Indique un citycode";
 		public static final String DTO_COUNTRY_CODE = "Indique un countrycode";
 		
-		public static final String ALREADY_EXISTS_USER = "Ya existe un usuario con email: %s";
+		public static final String ALREADY_EXISTS_USER = "El correo ya registrado";
+        public static final String INVALID_REQUEST = "Petición incorrecta";
 	}
 }

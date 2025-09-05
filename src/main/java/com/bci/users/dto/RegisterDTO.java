@@ -2,6 +2,7 @@ package com.bci.users.dto;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -38,10 +39,11 @@ public class RegisterDTO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private String password;
 	
-	@Schema(description = Field.USER_PHONES, required = false)
+	@Schema(description = Field.USER_PHONES, required = true)
 	@JsonProperty(Field.USER_PHONES)
 	@NotNull(message = Error.DTO_PHONE_NUMBER)
 	@NotEmpty(message = Error.DTO_PHONE_NUMBER)
+    @Valid
 	private List<PhoneDTO> phones;
 
 	public String getName() {

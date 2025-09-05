@@ -58,7 +58,7 @@ public class UserService implements IUserService{
 	
 	private void validations(final User u) throws Exception {
 		if(userRepository.existsByEmail(u.getEmail())) {
-			throw new Exception(String.format(Error.ALREADY_EXISTS_USER, u.getEmail()));
+			throw new Exception(Error.ALREADY_EXISTS_USER);
 		} else if(!Pattern.matches(applicationProperties.getEmailRegex(), u.getEmail())) {
 			throw new Exception(Error.DTO_FORMAT_USER_EMAIL);
 		} else if(!Pattern.matches(applicationProperties.getPasswordRegex(), u.getPassword())) {

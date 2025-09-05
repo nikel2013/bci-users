@@ -1,5 +1,6 @@
 package com.bci.users.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
@@ -17,18 +18,21 @@ public class PhoneDTO {
 	@Schema(description = Field.PHONE_NUMBER, required = true, example = "1234567")
 	@JsonProperty(Field.PHONE_NUMBER)
 	@NotNull(message = Error.DTO_PHONE_NUMBER)
+    @NotEmpty(message = Error.DTO_PHONE_NUMBER)
 	@JsonFormat(shape = JsonFormat.Shape.STRING)	
 	private String number;
 	
 	@Schema(description = Field.CITY_CODE, required = true, example = "1")
 	@JsonProperty(Field.CITY_CODE)
 	@NotNull(message = Error.DTO_CITY_CODE)
+    @NotEmpty(message = Error.DTO_CITY_CODE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private String cityCode;
 
 	@Schema(description = Field.COUNTRY_CODE, required = true, example = "57")
 	@JsonProperty(Field.COUNTRY_CODE)
 	@NotNull(message = Error.DTO_COUNTRY_CODE)
+    @NotEmpty(message = Error.DTO_COUNTRY_CODE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private String countryCode;
 

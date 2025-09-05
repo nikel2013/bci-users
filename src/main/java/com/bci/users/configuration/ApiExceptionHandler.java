@@ -1,33 +1,39 @@
 package com.bci.users.configuration;
 
-import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
-import org.springframework.http.HttpHeaders;
+import com.bci.users.domain.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.bci.users.dto.BaseResponseDTO;
 
-@ControllerAdvice
-public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
+@RestControllerAdvice
+public class ApiExceptionHandler{
 
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {        
+    @ExceptionHandler({ MethodArgumentNotValidException.class })
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         BaseResponseDTO errorDTO = new BaseResponseDTO();
         errorDTO.setStatusCode(HttpStatus.BAD_REQUEST);
-		errorDTO.setMensaje(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        errorDTO.setMensaje(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
         return new ResponseEntity<Object>(errorDTO, errorDTO.getStatusCode());
     }
 
-	@ExceptionHandler({ Exception.class, JdbcSQLIntegrityConstraintViolationException.class })
-    protected ResponseEntity<Object> handleException(Exception ex) {    	 
+	@ExceptionHandler({ Exception.class })
+    protected ResponseEntity<Object> handleException(Exception ex) {
 		BaseResponseDTO errorDTO = new BaseResponseDTO();
 		errorDTO.setStatusCode(HttpStatus.BAD_REQUEST);
-		errorDTO.setMensaje(ex.getMessage());		
-        return new ResponseEntity<Object>(errorDTO, errorDTO.getStatusCode());        
-	}		
-	
+
+        if (ex instanceof HttpMessageNotReadableException || ex instanceof HttpMediaTypeNotSupportedException) {
+            errorDTO.setMensaje(Constants.Error.INVALID_REQUEST);
+        } else {
+            errorDTO.setMensaje(ex.getMessage());
+        }
+
+        return new ResponseEntity<Object>(errorDTO, errorDTO.getStatusCode());
+	}
+
 }
